@@ -10,8 +10,8 @@ import java.util.List;
 public class StudentRepository implements IStudentRepository{
     private static List<Student> studentList = new ArrayList<>();
     static {
-        studentList.add(new Student(1,"chánh"));
-        studentList.add(new Student(2,"hải"));
+        studentList.add(new Student(1,"chánh",true,List.of("JS","Java","PHP"),"C05"));
+        studentList.add(new Student(2,"chánh2",true,List.of("JS","PHP"),"C05"));
     }
     @Override
     public List<Student> findAll() {

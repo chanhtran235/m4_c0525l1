@@ -17,6 +17,10 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
+    @ModelAttribute("subjects")
+    public List<String> getSubject(){
+        return  List.of("JS","Java","PHP", "SQL");
+    }
     @Autowired
     private IStudentService studentService;
 
@@ -27,15 +31,14 @@ public class StudentController {
         return "student/list";
     }
     @GetMapping(value = "/add")
-    public String showFormAdd(){
+    public String showFormAdd(Model model){
+        model.addAttribute("student", new Student());
         return "student/add";
     }
     @PostMapping("/add")
-    public String save(@RequestParam(name = "id") int id,
-                       @RequestParam(name = "name") String name,
+    public String save(@ModelAttribute Student student,
                        RedirectAttributes redirectAttributes
                        ){
-        Student student = new Student(id,name);
         studentService.add(student);
         redirectAttributes.addFlashAttribute("mess","add new success");
         return "redirect:/students";

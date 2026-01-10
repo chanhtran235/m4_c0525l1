@@ -20,6 +20,9 @@
         <td>STT</td>
         <td>ID</td>
         <td>Name</td>
+        <td>Gender</td>
+        <td>Subject</td>
+        <td>Class name</td>
         <td>Detail-requestParam</td>
         <td>Detail-pathVariable</td>
     </tr>
@@ -28,6 +31,14 @@
             <td>${status.count}</td>
             <td>${student.id}</td>
             <td>${student.name}</td>
+            <td>${student.gender}</td>
+            <td>
+                <c:forEach items="${student.subjects}" var="sub">
+                  <span>${sub},</span>
+                </c:forEach>
+            </td>
+
+            <td>${student.className}</td>
             <td>
                 <a href="/students/detail?id=${student.id}">Detail1</a>
             </td>
