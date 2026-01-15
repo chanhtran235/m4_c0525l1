@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{/layout/layout::library}"/>
+</head>
+<body>
+<th:block th:insert="~{/layout/layout::my-navbar}"/>
+<h1>Thêm mới</h1>
+<h2 th:text="#{codeTest}"></h2>
+<form action="/students/add" method="post" th:object="${student}">
+<!--    <input  th:field="*{id}" placeholder="Nhập id"><br>-->
+    <input th:field="*{name}" placeholder="Nhập tên"><br>
+    <button> Thêm mới </button>
+</form>
+</body>
+</html>
