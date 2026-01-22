@@ -24,6 +24,7 @@ public class StudentService implements IStudentService{
 
     @Override
     public boolean add(Student student) {
+
         return studentRepository.add(student);
     }
 }

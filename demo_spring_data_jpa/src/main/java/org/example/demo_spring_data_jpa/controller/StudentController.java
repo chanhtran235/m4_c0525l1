@@ -3,6 +3,11 @@ package org.example.demo_spring_data_jpa.controller;
 import org.example.demo_spring_data_jpa.entity.Student;
 import org.example.demo_spring_data_jpa.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +20,28 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
-    @ModelAttribute("subjects")
-    public List<String> getSubject(){
-        return  List.of("JS","Java","PHP", "SQL");
-    }
     @Autowired
     private IStudentService studentService;
 
+//    @GetMapping(value = "")
+//    public String showList(@PageableDefault(size = 2,sort = "name",direction = Sort.Direction.DESC) Pageable pageable,
+//                           Model model){
+//        Page<Student> studentPage = studentService.findAll(pageable);
+//        model.addAttribute("studentPage", studentPage);
+//        return "student/list";
+//    }
     @GetMapping(value = "")
-    public String showList(Model model){
-        List<Student> students = studentService.findByName("ch");
-        List<Student>  studentList = studentService.findAll();
-        model.addAttribute("studentList", studentList);
+    public String showList(@RequestParam(name = "page",defaultValue = "0")int page,
+                           @RequestParam(name = "searchName",defaultValue = "") String searchName,
+                           Model model){
+        Sort sort = Sort.by("name").descending().and(Sort.by("jame").descending());
+        Pageable pageable = PageRequest.of(page,2,sort);
+        Page<Student> studentPage = studentService.findAll(searchName,pageable);
+        model.addAttribute("studentPage", studentPage);
+        model.addAttribute("searchName", searchName);
         return "student/list";
     }
+
     @GetMapping(value = "/add")
     public String showFormAdd(Model model){
         model.addAttribute("student", new Student());
