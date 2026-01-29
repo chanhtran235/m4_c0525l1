@@ -1,10 +1,12 @@
 package org.example.demo_spring_data_jpa.service;
 
 import org.example.demo_spring_data_jpa.entity.Student;
+import org.example.demo_spring_data_jpa.exception.DuplicateAdminException;
 import org.example.demo_spring_data_jpa.repository.IStudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.List;
 public class StudentService implements IStudentService{
     @Autowired
     private IStudentRepository studentRepository;
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     @Override
     public List<Student> findAll() {
@@ -35,7 +39,10 @@ public class StudentService implements IStudentService{
     }
 
     @Override
-    public boolean add(Student student) {
+    public boolean add(Student student) throws DuplicateAdminException {
+        if (student.getName().equals("Admin")){
+            throw new DuplicateAdminException("Trùng tên với tên Admin");
+        }
         try{
             studentRepository.save(student);
             return true;

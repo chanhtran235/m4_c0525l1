@@ -1,6 +1,7 @@
 package org.example.demo_spring_data_jpa.service;
 
 import org.example.demo_spring_data_jpa.entity.Student;
+import org.example.demo_spring_data_jpa.exception.DuplicateAdminException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,6 +12,6 @@ public interface IStudentService {
     Page<Student> findAll(String searchName,Pageable pageable);
     List<Student> findByName(String name);
     Student findById(int id);
-    boolean add(Student student);
+    boolean add(Student student)throws DuplicateAdminException;
 
 }

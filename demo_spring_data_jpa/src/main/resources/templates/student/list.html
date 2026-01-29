@@ -26,7 +26,7 @@
         <td th:text="${status.count}"></td>
         <td th:text="${student.id}"></td>
         <td th:text="${student.name}"></td>
-        <td th:text="${student.jame.username}"></td>
+        <td th:text="${student.jame?.username}"></td>
         <td>
             <a th:href="@{/students/detail(id=${student.id})}">Detail1-Requestparam</a>
         </td>
