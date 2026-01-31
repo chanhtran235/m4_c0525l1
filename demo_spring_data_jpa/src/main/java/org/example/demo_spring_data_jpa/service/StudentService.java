@@ -39,10 +39,8 @@ public class StudentService implements IStudentService{
     }
 
     @Override
-    public boolean add(Student student) throws DuplicateAdminException {
-        if (student.getName().equals("Admin")){
-            throw new DuplicateAdminException("Trùng tên với tên Admin");
-        }
+    public boolean add(Student student){
+
         try{
             studentRepository.save(student);
             return true;
@@ -50,5 +48,21 @@ public class StudentService implements IStudentService{
             System.out.println(" lỗi thêm mới");
         }
         return false;
+    }
+
+    @Override
+    public boolean update(Student student) {
+        try{
+            studentRepository.save(student);
+            return true;
+        }catch (Exception e){
+            System.out.println(" lỗi thêm mới");
+        }
+        return false;
+    }
+
+    @Override
+    public void delete(int id) {
+        studentRepository.deleteById(id);
     }
 }

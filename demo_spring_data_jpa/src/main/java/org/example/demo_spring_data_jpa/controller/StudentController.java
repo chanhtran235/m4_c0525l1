@@ -59,7 +59,7 @@ public class StudentController {
     public String save(@Valid @ModelAttribute StudentDto studentDto,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes
-                       ) throws DuplicateAdminException {
+                       ){
 
         // code thêm cho kiểu custom validate
          new StudentValidate().validate(studentDto,bindingResult);

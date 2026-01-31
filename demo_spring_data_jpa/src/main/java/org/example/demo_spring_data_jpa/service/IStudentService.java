@@ -12,6 +12,8 @@ public interface IStudentService {
     Page<Student> findAll(String searchName,Pageable pageable);
     List<Student> findByName(String name);
     Student findById(int id);
-    boolean add(Student student)throws DuplicateAdminException;
+    boolean add(Student student);
+    boolean update(Student student);
+    void  delete(int id);
 
 }
